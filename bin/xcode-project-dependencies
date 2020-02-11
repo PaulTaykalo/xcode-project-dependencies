@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+require 'xcode-project-dependencies'
+
+options = {
+    :command => 'unknown'
+}
+
+arguments = ARGV.clone
+until arguments.empty?
+  item = arguments.shift
+  case item
+  when 'fetch'
+    options[:command] = item
+    options[:root_path] = File.expand_path(arguments.shift)
+  else
+    puts '[?PARAMETER?] '.yellow + "Unknown parameter #{item}"
+  end
+end
+
+dependencies_fetcher = XcodeDependenciesFetcher.new(options)
+case options[:command]
+when 'fetch'
+  puts '[?PATH?]'.yellow + 'Please provide path' unless options[:root_path]
+  dependencies_fetcher.fetch_dependecies_from_all_projects
+else
+  puts '[HELP] '.yellow + 'Run ' + 'xcode-project-dependencies.rb fetch   <path>'.magenta + ' to fetch depdendencies from all .xcodeproj files in specified dir' + "\n"
+end
