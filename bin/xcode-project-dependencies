@@ -1,10 +1,16 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
+# require '../lib/xcode-project-dependencies'
 require 'xcode-project-dependencies'
 
 options = {
     :command => 'unknown'
+}
+
+options = {
+    :command => "fetch",
+    :root_path => "/Users/ptaykalo/Projects/cleanmymac4"
 }
 
 arguments = ARGV.clone
